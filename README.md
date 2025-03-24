@@ -32,7 +32,7 @@ The infrastructure consists of the following components:
 1. Clone the repository:
 ```bash
 git clone https://github.com/isilva-t/42.Inception
-cd 42.Inception
+cd 42.Inception/project
 ```
 
 2. Run the setup:
@@ -164,6 +164,7 @@ The project uses several Docker volumes to persist data:
 
 ### Cannot connect to services
 
+- Run `make uplog` to see logs in real-time
 - Verify all containers are running: `docker ps`
 - Check container logs: `docker logs <container_name>`
 - Ensure ports are not in use by other applications

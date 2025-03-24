@@ -6,7 +6,7 @@ This project implements a complete web infrastructure using Docker containers, w
 
 ## 🏗️ Infrastructure Overview
 
-![scheme](./project/scheme.png)
+![scheme](./project/scheme.jpg)
 
 The infrastructure consists of the following components:
 

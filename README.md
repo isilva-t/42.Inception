@@ -76,7 +76,7 @@ For actual deployments, always use:
 - Secure credential storage
 - Strong, unique passwords
 
-By making the credentials visible here, we aim to simplify the educational experience and allow users to focus on understanding Docker containerization concepts without authentication barriers during the learning process.
+By making the credentials visible here, I aim to simplify the educational experience and allow users to focus on understanding Docker containerization concepts without authentication barriers during the learning process.
 
 Additionally, this project uses `localhost` as the default host to enable straightforward setup without requiring modifications to the `/etc/hosts` file. This design choice allows users to get started immediately without system configuration changes, further supporting the educational goals of the project.
 

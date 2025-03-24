@@ -51,7 +51,8 @@ This will:
 3. Start the services:
 ```bash
 make up       # Start in detached mode
-# OR
+```
+```bash
 make uplog    # Start with logs in foreground
 ```
 

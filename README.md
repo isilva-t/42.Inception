@@ -6,8 +6,6 @@ This project implements a complete web infrastructure using Docker containers, w
 
 ## Infrastructure Overview
 
-![Infrastructure Diagram](https://via.placeholder.com/800x400?text=Docker+Infrastructure+Diagram)
-
 The infrastructure consists of the following components:
 
 ### Core Services
@@ -33,8 +31,8 @@ The infrastructure consists of the following components:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/inception.git
-cd inception
+git clone https://github.com/isilva-t/42.Inception
+cd 42.Inception
 ```
 
 2. Run the setup:
@@ -57,15 +55,35 @@ make uplog    # Start with logs in foreground
 
 4. Access your services:
    - WordPress: https://localhost
-   - Adminer: https://localhost/adminer/
-   - Portainer: https://localhost/portainer/
+   - WordPress backoffice and redis plugin: https://localhost/wp-admin
+   - Adminer: https://localhost/adminer
+   - Portainer: https://localhost/portainer
+
+## Disclaimer
+
+**Important**: This project is intended for educational purposes only. The passwords and credentials displayed in this README are deliberately included to facilitate learning and easy setup in a controlled environment. In a real-world production scenario, these credentials should never be:
+
+1. Hardcoded in documentation
+2. Committed to version control
+3. Shared publicly
+
+For actual deployments, always use:
+- Environment variables
+- Secret management solutions
+- Secure credential storage
+- Strong, unique passwords
+
+By making the credentials visible here, we aim to simplify the educational experience and allow users to focus on understanding Docker containerization concepts without authentication barriers during the learning process.
+
+Additionally, this project uses `localhost` as the default host to enable straightforward setup without requiring modifications to the `/etc/hosts` file. This design choice allows users to get started immediately without system configuration changes, further supporting the educational goals of the project.
 
 ### Login Information
 
 #### WordPress
 - Admin Username: boss
 - Admin Password: bosswordpress
-- Admin Email: boss@isilva-t.42.fr
+- User username: user
+- User password: userpass
 
 #### Database
 - Username: sqluser
@@ -73,10 +91,12 @@ make uplog    # Start with logs in foreground
 - Root Password: rootpass
 
 #### FTP
+- URL: localhost
 - Username: boss
 - Password: bossftp
 
 #### Portainer
+- User: admin
 - Password: bossportainer
 
 ## Make Commands
@@ -117,7 +137,13 @@ make uplog    # Start with logs in foreground
 
 ### Networking
 
-All services communicate through a Docker network bridge named `myNet`. NGINX is the only container exposed to the host, via port 443 (HTTPS). The FTP server also exposes ports 20, 21, and 30000-30100 for passive mode connections.
+All services communicate through a Docker network bridge named `myNet`. NGINX is the only container exposed to the host, via port 443 (HTTPS), and serves as the central reverse proxy for the infrastructure. NGINX handles all incoming traffic and redirects requests to the appropriate services:
+
+- Root path (`/`) is directed to WordPress
+- `/adminer/` path is redirected to the Adminer service
+- `/portainer/` path is redirected to the Portainer management interface
+
+As specifically required by the 42 project subject, a standard FTP server (not SFTP) is implemented and exposes ports 20, 21, and 30000-30100 for passive mode connections.
 
 ### Volumes
 
@@ -150,11 +176,3 @@ The project uses several Docker volumes to persist data:
 ### SSL Certificate Warnings
 
 Since the project uses self-signed certificates, browsers will show security warnings. This is expected and can be bypassed for testing purposes.
-
-## License
-
-This project is created for educational purposes and is not meant for production use.
-
-## Acknowledgments
-
-This project was developed as part of the 42 School curriculum.

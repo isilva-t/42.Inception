@@ -17,7 +17,7 @@ The infrastructure consists of the following components:
 
 ### Bonus Services
 - **Redis**: ⚡ Cache for WordPress to improve performance
-- **VSFTPD Server**: 📂 For file uploads to WordPress directory
+- **FTP Server**: 📂 Using Vsftpd, for file uploads to WordPress directory
 - **Adminer**: 🔍 Database management interface
 - **Portainer**: 🔧 Docker container management UI
 

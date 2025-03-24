@@ -1,0 +1,168 @@
+version: "3.5"
+
+services:
+
+  nginx:
+    container_name: nginx
+    build: 
+      context: ./requirements/nginx/.
+      args:
+        - CERT_PATH
+        - SSL_CERT
+        - SSL_KEY
+        - COUNTRY
+        - STATE
+        - LOCALITY
+        - ORG_NAME
+        - ORG_UNIT
+        - DOMAIN_NAME
+    ports:
+      - "443:443"
+    networks:
+      - myNet
+    volumes:
+      - wordpress_data:/var/www/html:rw
+    depends_on:
+      - wordpress
+    restart: on-failure
+    env_file:
+      - ./.env
+
+  wordpress:
+    container_name: wordpress
+    build: requirements/wordpress/.
+    networks:
+      - myNet
+    volumes:
+      - wordpress_data:/var/www/html:rw
+    depends_on:
+      - mariadb
+    restart: on-failure
+    env_file:
+      - ./.env
+    secrets:
+      - sql_user
+      - sql_pass
+      - wp_admin_user
+      - wp_admin_pass
+      - wp_admin_email
+
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb/.
+    networks:
+      - myNet
+    volumes:
+      - mariadb_data:/var/lib/mysql:rw
+    restart: on-failure
+    env_file:
+      - ./.env
+    secrets:
+      - sql_root_pass
+      - sql_user
+      - sql_pass
+
+  adminer:
+    container_name: adminer
+    build: requirements/bonus/adminer/.
+    networks:
+      - myNet
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_data:/var/www/html:rw
+    restart: on-failure
+    env_file:
+      - ./.env
+  
+  redis:
+    container_name: redis
+    build: requirements/bonus/redis/.
+    networks:
+      - myNet
+    depends_on:
+      - wordpress
+    volumes:
+      - redis_data:/data:rw
+    restart: on-failure
+
+  ftp:
+    container_name: ftp
+    build: requirements/bonus/ftp/.
+    networks:
+      - myNet
+    depends_on:
+      - wordpress
+    ports:
+      - "21:21"
+      - "20:20"
+      - "30000-30100:30000-30100"
+    volumes:
+      - wordpress_data:/var/www/html:rw
+    restart: on-failure
+    secrets:
+      - ftp_user
+      - ftp_pass
+  
+  portainer:
+    container_name: portainer
+    build: ./requirements/bonus/portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer_data:/data
+    restart: on-failure
+    networks:
+      - myNet
+    secrets:
+      - port_pass
+
+networks:
+  myNet:
+    driver: bridge
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/wordpress
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/mariadb
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/mariadb
+  portainer_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/mariadb
+
+
+secrets:
+  sql_root_pass:
+    file: ../secrets/sql_root_pass
+  sql_user:
+    file: ../secrets/sql_user
+  sql_pass:
+    file: ../secrets/sql_pass
+  wp_admin_user:
+    file: ../secrets/wp_admin_user
+  wp_admin_pass:
+    file: ../secrets/wp_admin_password
+  wp_admin_email:
+    file: ../secrets/wp_admin_email
+  ftp_user:
+    file: ../secrets/ftp_user
+  ftp_pass:
+    file: ../secrets/ftp_pass
+  port_pass:
+    file: ../secrets/port_pass

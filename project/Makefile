@@ -61,7 +61,7 @@ redis:
 out:
 	@touch outfile
 	@rm outfile
-	@find . -type f ! -name "outfile" | while read file; do \
+	@find . -type f ! -name "outfile" ! -name "*.xz" | while read file; do \
 		echo "### Starting file: $$file" >> outfile; \
 		echo "" >> outfile; \
 		cat "$$file" >> outfile; \

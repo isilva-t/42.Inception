@@ -1,31 +1,31 @@
-# Inception
+# 🐳 Inception
 
 A Docker containerized WordPress infrastructure with NGINX, MariaDB, and additional services.
 
 This project implements a complete web infrastructure using Docker containers, with each service running in its own dedicated container according to best practices. It's designed as an educational project to demonstrate containerization concepts and multi-service orchestration.
 
-## Infrastructure Overview
+## 🏗️ Infrastructure Overview
 
 The infrastructure consists of the following components:
 
 ### Core Services
-- **NGINX**: Web server with TLS/SSL, the only entry point to your infrastructure
-- **WordPress + PHP-FPM**: Content management system
-- **MariaDB**: Database server
+- **NGINX**: 🌐 Web server with TLS/SSL, the only entry point to your infrastructure
+- **WordPress + PHP-FPM**: 📝 Content management system
+- **MariaDB**: 💾 Database server
 
 ### Bonus Services
-- **Redis**: Cache for WordPress to improve performance
-- **FTP Server**: For file uploads to WordPress directory
-- **Adminer**: Database management interface
-- **Portainer**: Docker container management UI
+- **Redis**: ⚡ Cache for WordPress to improve performance
+- **FTP Server**: 📂 For file uploads to WordPress directory
+- **Adminer**: 🔍 Database management interface
+- **Portainer**: 🔧 Docker container management UI
 
-## Requirements
+## ✅ Requirements
 
 - Docker Engine 20.10.x+
 - Docker Compose 1.25.x+
 - Make
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Installation
 
@@ -59,7 +59,7 @@ make uplog    # Start with logs in foreground
    - Adminer: https://localhost/adminer
    - Portainer: https://localhost/portainer
 
-## Disclaimer
+## ⚠️ Disclaimer
 
 **Important**: This project is intended for educational purposes only. The passwords and credentials displayed in this README are deliberately included to facilitate learning and easy setup in a controlled environment. In a real-world production scenario, these credentials should never be:
 
@@ -77,7 +77,7 @@ By making the credentials visible here, we aim to simplify the educational exper
 
 Additionally, this project uses `localhost` as the default host to enable straightforward setup without requiring modifications to the `/etc/hosts` file. This design choice allows users to get started immediately without system configuration changes, further supporting the educational goals of the project.
 
-### Login Information
+### 🔑 Login Information
 
 #### WordPress
 - Admin Username: boss
@@ -99,7 +99,7 @@ Additionally, this project uses `localhost` as the default host to enable straig
 - User: admin
 - Password: bossportainer
 
-## Make Commands
+## 🛠️ Make Commands
 
 | Command | Description |
 |---------|-------------|
@@ -113,7 +113,7 @@ Additionally, this project uses `localhost` as the default host to enable straig
 | `make mariadb` | Open shell in mariadb container |
 | `make redis` | Open Redis CLI |
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 .
@@ -133,7 +133,7 @@ Additionally, this project uses `localhost` as the default host to enable straig
 │           └── portainer/ # Container management
 ```
 
-## Technical Details
+## 🔧 Technical Details
 
 ### Networking
 
@@ -155,12 +155,12 @@ The project uses several Docker volumes to persist data:
 
 ### Security
 
-- TLS/SSL with self-signed certificates for HTTPS
-- Docker secrets for sensitive information
-- No passwords stored in Dockerfiles
-- Environment variables for configuration
+- 🔒 TLS/SSL with self-signed certificates for HTTPS
+- 🔐 Docker secrets for sensitive information
+- 🚫 No passwords stored in Dockerfiles
+- 🔧 Environment variables for configuration
 
-## Troubleshooting
+## ❓ Troubleshooting
 
 ### Cannot connect to services
 
